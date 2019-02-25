@@ -13,26 +13,33 @@ class Contact:
 
     @classmethod
     def create(cls, first_name, last_name, email, note):
-        new_contact = Contact(first_name, last_name, email, note)
-        cls.contacts.append(new_contact)
+        valid = next((contact for contact in cls.contacts if contact.email == email), None)
+        if valid:
+            print("Email address already exists")
+        else:
+            new_contact = Contact(first_name, last_name, email, note)
+            cls.contacts.append(new_contact)
         return new_contact
 
     @classmethod
     def all(cls):
-        """This method should return all of the existing contacts"""
+        for contact in cls.contacts:
+            return "{} {}, {}".format(contact.first_name, contact.last_name, contact.email)
 
     @classmethod
-    def find(cls):
-        """ This method should accept an id as an argument
-        and return the contact who has that id
-        """
+    def find(cls, ident):
+        for contact in cls.contacts:
+            if ident == contact.id:
+                return "{} {}, {}".format(contact.first_name, contact.last_name, contact.email)
 
-    def update(self):
+    def update(self, contact_email, modifier):
         """ This method should allow you to specify
+        force pass in only email, make email unique
         1. which of the contact's attributes you want to update
         2. the new value for that attribute
         and then make the appropriate change to the contact
         """
+        updater = next((x for x in some_list if match(x)), default_val)
 
     @classmethod
     def find_by(cls):
@@ -44,12 +51,13 @@ class Contact:
 
     @classmethod
     def delete_all(cls):
-        """This method should delete all of the contacts"""
+        cls.contacts = []
 
-
-    def full_name(self):
+    def full_name(self, first_name, last_name):
         """Returns the full (first and last) name of the contact"""
-
+        for contact in Contact.contacts:
+            if contact.first_name == first_name and contact.last_name == last_name:
+                return "{} {}, {}".format(contact.first_name, contact.last_name, contact.email)
     def delete(self):
         """This method should delete the contact
         HINT: Check the Array class docs for built-in methods that might be useful here
@@ -58,4 +66,5 @@ class Contact:
 
 test1 = Contact.create("Sanchit", "Jain", "sanchit.jain@mail.mcgill.ca", "hello")
 test2 = Contact.create("Tarishi", "Jain", "smartaru1997@gmail.com", "hello")
+test3 = Contact.create("Josh", "Teneycke", "james.mcgill@mail.mcgill.ca", "hello")
 print(len(Contact.contacts))

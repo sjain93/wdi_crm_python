@@ -1,5 +1,6 @@
 from contact import Contact
 
+
 class CRM:
 
   # def main_menu(self):
