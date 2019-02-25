@@ -23,8 +23,8 @@ class Contact:
 
     @classmethod
     def all(cls):
-        for contact in cls.contacts:
-            return "{} {}, {}".format(contact.first_name, contact.last_name, contact.email)
+        for contact in Contact.contacts:
+            print("{} {}, {}".format(contact.first_name, contact.last_name, contact.email))
 
     @classmethod
     def find(cls, ident):
@@ -32,14 +32,22 @@ class Contact:
             if ident == contact.id:
                 return "{} {}, {}".format(contact.first_name, contact.last_name, contact.email)
 
-    def update(self, contact_email, modifier):
-        """ This method should allow you to specify
-        force pass in only email, make email unique
+    def update(self):
+        """ This method should allow you to specify, chosen instance will come from CRM class
         1. which of the contact's attributes you want to update
         2. the new value for that attribute
         and then make the appropriate change to the contact
         """
-        updater = next((x for x in some_list if match(x)), default_val)
+        print("Copy and paste the attribute would you like to change:\nfirst_name\nlast_name\nemail\nnote")
+        attribute = input()
+        validation = ["first_name", "last_name", "email", "note"]
+        if attribute in validation:
+            print("Ok, what is the new {}?".format(attribute))
+            new_attr = input()
+            setattr(self, attribute, new_attr)
+            print("Attribute updated")
+        else:
+            print("Invalid attribute provided")
 
     @classmethod
     def find_by(cls):
@@ -48,23 +56,31 @@ class Contact:
         by specifying both the name of the attribute and the value eg.
         searching for 'first_name', 'Betty' should return the first contact named Betty
         """
+        print("Please specify an attribute to provide a search")
+    pass
 
     @classmethod
     def delete_all(cls):
         cls.contacts = []
 
-    def full_name(self, first_name, last_name):
+    def full_name(self):
         """Returns the full (first and last) name of the contact"""
-        for contact in Contact.contacts:
-            if contact.first_name == first_name and contact.last_name == last_name:
-                return "{} {}, {}".format(contact.first_name, contact.last_name, contact.email)
+        if self in Contact.contacts:
+            print("{} {}".format(self.first_name, self.last_name))
+
     def delete(self):
         """This method should delete the contact
         HINT: Check the Array class docs for built-in methods that might be useful here
         """
+        pass
 
 
 test1 = Contact.create("Sanchit", "Jain", "sanchit.jain@mail.mcgill.ca", "hello")
 test2 = Contact.create("Tarishi", "Jain", "smartaru1997@gmail.com", "hello")
 test3 = Contact.create("Josh", "Teneycke", "james.mcgill@mail.mcgill.ca", "hello")
+print(len(Contact.contacts))
+test1.full_name()
+test1.update()
+Contact.all()
+# Contact.delete_all()
 print(len(Contact.contacts))
