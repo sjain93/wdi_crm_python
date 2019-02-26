@@ -53,7 +53,7 @@ class CRM:
         for contact in Contact.contacts:
             print("{} {} {}".format(contact.id, contact.first_name, contact.email))
         input_id = int(input())
-        contact_detail = Contact.find(input_id)
+        contact_detail = Contact.get(id=input_id)
         Contact.update(contact_detail)
         # print(contact_detail)
 
@@ -62,7 +62,7 @@ class CRM:
         for contact in Contact.contacts:
             print("{} {} {}".format(contact.id, contact.first_name, contact.email))
         input_id = int(input())
-        contact_detail = Contact.find(input_id)
+        contact_detail = Contact.get(id=input_id)
         Contact.delete(contact_detail)
 
     def display_all_contacts(self):
