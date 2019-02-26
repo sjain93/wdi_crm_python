@@ -30,7 +30,7 @@ class Contact:
     def find(cls, ident):
         for contact in cls.contacts:
             if ident == contact.id:
-                return "{} {}, {}".format(contact.first_name, contact.last_name, contact.email)
+                return contact
 
     def update(self):
         """ This method should allow you to specify, chosen instance will come from CRM class
@@ -81,7 +81,10 @@ class Contact:
         """This method should delete the contact
         HINT: Check the Array class docs for built-in methods that might be useful here
         """
-        Contact.contacts.remove(self)
+        for contact in Contact.contacts:
+            if self == contact:
+                Contact.contacts.remove(self)
+                print("Contact deleted")
 
     def __str__(self):
         return "Name: {} {}, email: {}, note: {}".format(self.first_name, self.last_name, self.email, self.note)
