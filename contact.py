@@ -50,14 +50,23 @@ class Contact:
             print("Invalid attribute provided")
 
     @classmethod
-    def find_by(cls):
+    def find_by(cls, search_field, search_value):
         """This method should work similarly to the find method above
         but it should allow you to search for a contact using attributes other than id
         by specifying both the name of the attribute and the value eg.
         searching for 'first_name', 'Betty' should return the first contact named Betty
         """
-        print("Please specify an attribute to provide a search")
-    pass
+        for curr_contact in cls.contacts:
+            if search_field == "first_name" and search_value == curr_contact.first_name:
+                return curr_contact
+            elif search_field == "last_name" and search_value == curr_contact.last_name:
+                return curr_contact
+            elif search_field == "email" and search_value == curr_contact.email:
+                return curr_contact
+            elif search_field == "note" and search_value == curr_contact.note:
+                return curr_contact
+            else:
+                return False
 
     @classmethod
     def delete_all(cls):
@@ -72,15 +81,18 @@ class Contact:
         """This method should delete the contact
         HINT: Check the Array class docs for built-in methods that might be useful here
         """
-        pass
+        Contact.contacts.remove(self)
+
+    def __str__(self):
+        return "Name: {} {}, email: {}, note: {}".format(self.first_name, self.last_name, self.email, self.note)
 
 
-test1 = Contact.create("Sanchit", "Jain", "sanchit.jain@mail.mcgill.ca", "hello")
-test2 = Contact.create("Tarishi", "Jain", "smartaru1997@gmail.com", "hello")
-test3 = Contact.create("Josh", "Teneycke", "james.mcgill@mail.mcgill.ca", "hello")
-print(len(Contact.contacts))
-test1.full_name()
-test1.update()
-Contact.all()
-# Contact.delete_all()
-print(len(Contact.contacts))
+# test1 = Contact.create("Sanchit", "Jain", "sanchit.jain@mail.mcgill.ca", "hello")
+# test2 = Contact.create("Tarishi", "Jain", "smartaru1997@gmail.com", "hello")
+# test3 = Contact.create("Josh", "Teneycke", "james.mcgill@mail.mcgill.ca", "hello")
+# print(len(Contact.contacts))
+# test1.full_name()
+# test1.update()
+# Contact.all()
+# # Contact.delete_all()
+# print(len(Contact.contacts))
